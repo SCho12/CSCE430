@@ -15,5 +15,5 @@ int main()
         total += stoi(num);
     }
 
-    cout << total;
+    cout << total << endl;
 } 

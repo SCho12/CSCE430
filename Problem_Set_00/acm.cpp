@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include <algorithm>
 #include <string>
 
 using namespace std;
@@ -11,8 +12,10 @@ int main() {
     string time;
     string problem;
     string outcome;
+    vector<string> list;
     bool read = true;
     int num_correct = 0;
+    int time_total = 0;
 
     while (read == true) {
         
@@ -23,11 +26,13 @@ int main() {
             read = false;
         } else {
             ss >> problem >> outcome;
-            // cout << "Time: " << time << endl;
-            // cout << "Problem: " << problem << endl;
-            // cout << "Outcome: " << outcome << endl;
+            list.push_back(problem);
+            if (outcome == "right") {
+                time_total += stoi(time) + ((std::count(list.begin(), list.end(), problem) - 1) * 20);
+                num_correct += 1;
+            }
         }
 
     }
-    // cout << "exited" << endl;
+    cout << num_correct << " " << time_total;
 }
