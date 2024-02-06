@@ -4,6 +4,12 @@
         "string": "cpp",
         "xstring": "cpp",
         "vector": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "ostream": "cpp",
+        "utility": "cpp",
+        "queue": "cpp",
+        "xiosbase": "cpp",
+        "map": "cpp",
+        "xtree": "cpp"
     }
 }
