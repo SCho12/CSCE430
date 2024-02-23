@@ -10,6 +10,22 @@
         "queue": "cpp",
         "xiosbase": "cpp",
         "map": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "algorithm": "cpp",
+        "bitset": "cpp",
+        "iterator": "cpp",
+        "xhash": "cpp",
+        "xmemory": "cpp",
+        "array": "cpp",
+        "chrono": "cpp",
+        "deque": "cpp",
+        "format": "cpp",
+        "forward_list": "cpp",
+        "initializer_list": "cpp",
+        "list": "cpp",
+        "ranges": "cpp",
+        "regex": "cpp",
+        "span": "cpp",
+        "valarray": "cpp"
     }
 }
