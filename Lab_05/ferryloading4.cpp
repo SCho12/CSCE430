@@ -1,105 +1,63 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
     int cases;
     cin >> cases;
-    int length, cars;
 
     for (int i = 0; i < cases; i++) {
-        int trips = 0;
+        int length, cars;
         cin >> length >> cars;
-        //cout << "length: " << length << endl;
-        length = length * 100;
-        int length_cpy = length;
-        queue<pair<int, string>> load;
-        int car_length;
-        string side;
+        length *= 100; 
+
+        queue<int> left, right;
+        bool isLeft = true; 
+        int trips = 0;
 
         for (int j = 0; j < cars; j++) {
+            int car_length;
+            string side;
+
             cin >> car_length >> side;
-            load.push(make_pair(car_length, side));
-        }
 
-        int count = 0;
-        bool left = true;
-        bool right = false;
-
-
-
-        while (!load.empty()) {
-            if (count == 0 && load.front().second == "right") {
-                trips++;
-                count++;
-                left = false;
-                right = true;
-            }
-
-            if (left && load.front().second == "left") {
-                //cout << "line 37" << endl;
-                //cout << "length: " << length << " load: " << load.front().first << endl;
-                if ((length - load.front().first) > 0) {
-                    length -= load.front().first;
-                    load.pop();
-                    if (!load.empty() && load.front().second == "right") {
-                        trips++;
-                        length = length_cpy;
-                        left = false;
-                        right = true;
-                    } else if (load.empty()) {
-                        trips++;
-                        count = 0;
-                        left = true;
-                        right = false;
-                        break;
-                    }
-                } else {
-                    //cout << "line 48" << endl;
-                    trips++;
-                    length = length_cpy;
-                    left = false;
-                    right = true;
-                }
-            } else if (left && load.front().second == "right") {
-                trips++;
-                length = length_cpy;
-                left = false;
-                right = true;
-            }
-
-            if (right && load.front().second == "right") {
-                //cout << "line 58" << endl;
-                if (length - load.front().first > 0) {
-                    length -= load.front().first;
-                    load.pop();
-                    if (!load.empty() && load.front().second == "left") {
-                        trips++;
-                        length = length_cpy;
-                        left = true;
-                        right = false;
-                    }  else if (load.empty()) {
-                        trips++;
-                        count = 0;
-                        left = true;
-                        right = false;
-                        break;
-                    }
-                } else {
-                    //cout << "line 69" << endl;
-                    trips++;
-                    length = length_cpy;
-                    left = true;
-                    right = false;
-                }
-            } else if (right && load.front().second == "left") {
-                trips++;
-                length = length_cpy;
-                left = true;
-                right = false;
+            if (side == "left") {
+                left.push(car_length);
+            } else {
+                right.push(car_length);
             }
         }
-        //cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$" << endl;
+
+        int temp = length;
+        bool empty = true;
+        while (!left.empty() || !right.empty()) {
+            temp = length; 
+            empty = true;
+            if (isLeft) {
+                while (!left.empty() && temp >= left.front()) {
+                    temp -= left.front();
+                    left.pop();
+                    empty = false;
+                }
+            } else {
+                while (!right.empty() && temp >= right.front()) {
+                    temp -= right.front();
+                    right.pop();
+                    empty = false;
+                }
+            }
+            
+            if (!left.empty() || !right.empty() || !empty) {
+                isLeft = !isLeft; 
+                trips++; 
+            }
+        }
+
+        if (empty && !isLeft) {
+            trips--;
+        }
+
         cout << trips << endl;
-        trips = 0;
     }
+    
+    return 0;
 }
